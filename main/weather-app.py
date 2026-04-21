@@ -87,7 +87,7 @@ def get_weather(city, unit="C"):
         print(Fore.RED + f"⚠️  Unexpected API response — city may be invalid. ({e})")
 
 def main():
-    print(Fore.CYAN + Style.BRIGHT + "🌤️  Robert's Weather App 🌤️")
+    print(Fore.CYAN + Style.BRIGHT + "🌤️  TheWeather 🌤️")
     city = input("Enter city name: ").strip()
     if not city:
         print(Fore.RED + "⚠️  No city entered. Exiting.")
