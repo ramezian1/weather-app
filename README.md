@@ -1,4 +1,4 @@
-# 🌤️ Robert's Weather App
+# 🌤️ TheWeather
 
 A clean, fast, and friendly terminal-based weather app built in Python!  
 Get instant weather updates for any city in the world, with current conditions and a tomorrow forecast — all in a beautiful, emoji-enhanced format. No API key required!
@@ -29,23 +29,25 @@ Get instant weather updates for any city in the world, with current conditions a
 ## 🖥️ Demo
 
 ```bash
-$ python main.py
-🌤️ Welcome to Bobby's Weather App 🌤️
+$ python weather-app.py
+🌤️  TheWeather 🌤️
 Enter city name: Tokyo
-Choose units - (C)elsius or (F)ahrenheit: F
+Choose units — (C)elsius or (F)ahrenheit: F
 
 📍 Weather in Tokyo
-Now: ☁️ Partly cloudy
-Temperature: 75.2°F (Feels like 77.0°F)
+   ☁️  Partly Cloudy
+   🌡️  75.2°F  (feels like 77.0°F)
+   💧 Humidity: 62%   💨 Wind: 18 km/h
 
-📅 Tomorrow: 🌧️ Light rain shower
-Expected Temp: 68.0°F
-----------------------------------------
+📅 Tomorrow's Forecast
+   🌧️  Light Rain Shower
+   🌡️  68.0°F
+
+────────────────────────────────────────
 ```
 
 ## Future Improvements
 - 🌍 Auto-detect location
-- 🖌️ Add colorized terminal output (with colorama)
 - ⏱️ Add hourly forecast
 - 🗂️ Export forecast to text or CSV
 - 🧩 Package as a global CLI tool
