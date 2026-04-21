@@ -62,19 +62,24 @@ def fmt_temp(temp_c, use_f, symbol):
     return f"{t}{symbol}"
 
 
+_W = 52
+
+
+def _div():
+    print(Style.DIM + Fore.WHITE + "  " + "─" * _W)
+
+
 def print_hourly(hourly, use_f, symbol):
-    slots = [
-        ("Morning  (06:00)", 2),
-        ("Midday   (12:00)", 4),
-        ("Evening  (18:00)", 6),
-    ]
-    for label, idx in slots:
+    for idx, time_str in [(2, "06:00"), (4, "12:00"), (6, "18:00")]:
         if idx < len(hourly):
             h = hourly[idx]
             desc = h["weatherDesc"][0]["value"]
             emoji = get_weather_emoji(desc)
             temp = fmt_temp(h["tempC"], use_f, symbol)
-            print(Fore.WHITE + f"     {label}  {emoji}  {temp}  —  {desc}")
+            print(Style.DIM + Fore.WHITE + f"  {time_str}   " +
+                  Style.NORMAL + Fore.WHITE + f"{emoji}   " +
+                  Fore.YELLOW + f"{temp:<8}" +
+                  Fore.WHITE + desc)
 
 
 def get_weather(city, unit="C"):
@@ -87,7 +92,6 @@ def get_weather(city, unit="C"):
         response.raise_for_status()
         data = response.json()
 
-        # Current conditions
         current = data["current_condition"][0]
         desc = current["weatherDesc"][0]["value"]
         emoji = get_weather_emoji(desc)
@@ -97,26 +101,24 @@ def get_weather(city, unit="C"):
         wind = current.get("windspeedKmph", "N/A")
 
         print()
-        print(Fore.CYAN + Style.BRIGHT + f"  📍 {city.title()} — Now")
-        print(Fore.WHITE + f"     {emoji}  {desc}")
-        print(Fore.YELLOW + f"     🌡️  {temp}  (feels like {feels})")
-        print(Fore.BLUE + f"     💧 Humidity: {humidity}%   💨 Wind: {wind} km/h")
+        print(Fore.CYAN + Style.BRIGHT + f"  {city.upper()}  " +
+              Style.NORMAL + Fore.WHITE + f"{emoji}  {desc}  " +
+              Fore.YELLOW + f"{temp}  " +
+              Style.DIM + Fore.WHITE + f"(feels {feels})")
+        print(Fore.BLUE + f"  💧 {humidity}%   💨 {wind} km/h")
 
-        # Today's hourly breakdown
         weather_days = data.get("weather", [])
+
         if weather_days:
-            print()
-            print(Fore.CYAN + Style.BRIGHT + "  ⏱️  Today")
+            _div()
             print_hourly(weather_days[0].get("hourly", []), use_f, symbol)
 
-        # Multi-day forecast
         if len(weather_days) >= 2:
-            print()
-            print(Fore.CYAN + Style.BRIGHT + "  📅 Forecast")
+            _div()
             for day_data in weather_days[1:]:
                 date_str = day_data.get("date", "")
                 try:
-                    date_label = datetime.strptime(date_str, "%Y-%m-%d").strftime("%A, %b %d")
+                    date_label = datetime.strptime(date_str, "%Y-%m-%d").strftime("%a %b %d")
                 except ValueError:
                     date_label = date_str
                 min_t = fmt_temp(day_data["mintempC"], use_f, symbol)
@@ -125,10 +127,11 @@ def get_weather(city, unit="C"):
                 mid = hourly[4] if len(hourly) > 4 else (hourly[-1] if hourly else None)
                 day_desc = mid["weatherDesc"][0]["value"] if mid else "N/A"
                 day_emoji = get_weather_emoji(day_desc)
-                print(Fore.WHITE + f"     {date_label:<20}  {day_emoji}  {day_desc}")
-                print(Fore.YELLOW + f"     {'':20}     ↓ {min_t}  ↑ {max_t}")
+                print(Fore.WHITE + f"  {date_label:<12}  {day_emoji}   {day_desc:<22}" +
+                      Fore.YELLOW + f"↓ {min_t}   ↑ {max_t}")
 
-        print(Fore.WHITE + "\n  " + "─" * 38)
+        _div()
+        print()
 
     except requests.exceptions.Timeout:
         print(Fore.RED + "⚠️  Request timed out. Check your connection.")
