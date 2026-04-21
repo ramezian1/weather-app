@@ -1,63 +1,81 @@
 # 🌤️ TheWeather
 
-A clean, fast, and friendly terminal-based weather app built in Python!  
-Get instant weather updates for any city in the world, with current conditions and a tomorrow forecast — all in a beautiful, emoji-enhanced format. No API key required!
+A clean, fast terminal weather app built in Python. Get current conditions, today's hourly breakdown, and a multi-day forecast for any city — no API key required.
 
-## 🚀 Features
+## Features
 
-- 📍 Real-time weather updates by city name
-- 🌡️ Supports both Celsius and Fahrenheit units
-- 📅 Includes tomorrow's forecast
-- 🌈 Emoji-enhanced descriptions for a friendly experience
-- ⚠️ Graceful error handling (bad input, network issues, etc.)
-- 🧩 Ready for portfolio use, extendable, and easy to package as a CLI tool
+- 📍 Real-time weather for any city
+- ⏱️ Morning / midday / evening breakdown for today
+- 📅 Multi-day forecast with min/max temps
+- 🌡️ Celsius and Fahrenheit support (preference saved automatically)
+- 📡 Auto-detects your city from IP on startup
+- 🌈 Color-coded terminal output with emoji descriptions
+- ⚠️ Graceful error handling (timeout, bad city, network issues)
 
 ## Getting Started
 
-- Download zip folder
-- Run Code Environment (PyCharm, Visual Studio Code, etc.)
-- Optional: Create Python 3.13.2 virtual environment
-- Install necessary pip packages (if not done so already) with following command:
-  ```bash
-  $ pip install -r requirements.txt
-  ```
-- Run application with following command or from IDE:
-  ```bash
-  $ python weather-app.py
-  ```
-
-## 🖥️ Demo
+### Option A — run directly
 
 ```bash
-$ python weather-app.py
-🌤️  TheWeather 🌤️
-Enter city name: Tokyo
-Choose units — (C)elsius or (F)ahrenheit: F
+pip install -r main/requirements.txt
+python main/weather_app.py
+```
 
-📍 Weather in Tokyo
-   ☁️  Partly Cloudy
-   🌡️  75.2°F  (feels like 77.0°F)
-   💧 Humidity: 62%   💨 Wind: 18 km/h
+### Option B — install as a CLI tool
 
-📅 Tomorrow's Forecast
-   🌧️  Light Rain Shower
-   🌡️  68.0°F
+```bash
+pip install .
+theweather
+```
 
-────────────────────────────────────────
+Your unit preference (C/F) is saved to `~/.theweather.json` after the first run.
+
+## Demo
+
+```
+  _____ _    __   _    __         _   _
+ |_   _| |__/ /__| |  / /__ ___ _| |_| |_  ___ _ _
+   | | | ' \/ -_) | / // -_) _` |  _| ' \/ -_) '_|
+   |_| |_||_\___|_|/_/ \___\__,_|\__|_||_\___|_|
+
+Enter city name [New York]:
+Units — (C)elsius or (F)ahrenheit [C]:
+
+  📍 New York — Now
+     ☁️  Partly Cloudy
+     🌡️  18°C  (feels like 16°C)
+     💧 Humidity: 58%   💨 Wind: 22 km/h
+
+  ⏱️  Today
+     Morning  (06:00)  🌧️  14°C  —  Light Rain
+     Midday   (12:00)  ☁️  18°C  —  Partly Cloudy
+     Evening  (18:00)  ☀️  17°C  —  Clear
+
+  📅 Forecast
+     Wednesday, Apr 22     ☁️  Overcast
+                              ↓ 13°C  ↑ 21°C
+     Thursday, Apr 23      🌧️  Light Rain Shower
+                              ↓ 11°C  ↑ 18°C
+
+  ──────────────────────────────────────
+```
+
+## Running Tests
+
+```bash
+pip install pytest
+pytest tests/ -v
 ```
 
 ## Future Improvements
-- 🌍 Auto-detect location
-- ⏱️ Add hourly forecast
-- 🗂️ Export forecast to text or CSV
-- 🧩 Package as a global CLI tool
 
-## 🤝 Contributing
+- 🌍 Hourly forecast for tomorrow
+- 🗂️ Export forecast to text or CSV
+
+## Contributing
 
 Contributions are welcome! Fork this repo and submit a pull request, or open an issue for suggestions.
 
 ---
-Created & Owned by [Robert Mezian](https://github.com/ramezian1). 
 
-
-All rights reserved as of 2025.
+Created & Owned by [Robert Mezian](https://github.com/ramezian1). All rights reserved as of 2025.

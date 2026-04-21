@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "theweather"
+version = "1.0.0"
+description = "Fast terminal weather app — current conditions, hourly, and multi-day forecast"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "colorama>=0.4.6",
+    "pyfiglet>=1.0.2",
+    "requests>=2.32.3",
+]
+
+[project.scripts]
+theweather = "main.weather_app:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["main*"]
